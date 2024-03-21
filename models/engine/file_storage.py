@@ -2,12 +2,20 @@
 """Module for FileStorage class"""
 import json
 import os
-
+from models.base_model import BaseModel
 
 class FileStorage:
     """
     class FileStorage that serializes instances to a JSON file
     and deserializes JSON file to instances
+    attrs:
+        __file_path
+        __objects
+    methods:
+        all(self)
+        new(self, obj)
+        save(self)
+        reload(self)
     """
     __file_path = "file.json"
     __objects = {}
@@ -41,3 +49,5 @@ class FileStorage:
 
         with open(self.__file_path, 'r') as f:
             json_data = json.load(f)
+            for k, v in json_data.items():
+                self.__objects[k] = BaseModel(**v)
