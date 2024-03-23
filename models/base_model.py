@@ -4,7 +4,6 @@ Module BaseModel class
 """
 from datetime import datetime
 from uuid import uuid4
-from models import storage
 
 
 class BaseModel:
@@ -19,6 +18,7 @@ class BaseModel:
     """
     def __init__(self, *args, **kwargs):
         """ init constructor"""
+        from models import storage
         if kwargs:
             for k, v in kwargs.items():
                 if k == "__class__":
@@ -41,8 +41,9 @@ class BaseModel:
 
     def save(self):
         """update instance, update attr updated_at"""
+        from models import storage
         self.updated_at = datetime.now()
-        storage.save(self)
+        storage.save()
 
     def to_dict(self):
         """return a dictionary with all key/value"""
