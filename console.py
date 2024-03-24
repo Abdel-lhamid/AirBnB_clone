@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class name"""
+        """Prints all string representation of all instances based or not on the class namie """
         args = arg.split()
         objects = storage.all()
         if not args:
