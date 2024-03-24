@@ -4,6 +4,7 @@ Module Custom CMD
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
@@ -13,7 +14,8 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
-    classes = {"BaseModel": BaseModel}
+    classes = {"BaseModel": BaseModel,
+               "User": User}
 
     def do_quit(self, arg):
         """Quit command, exits the consol"""
@@ -39,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        new_inst = BaseModel()
+        new_inst = self.classes[args[0]]()
         new_inst.save()
         print(new_inst.id)
 
@@ -101,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             print([str(obj) for key, obj in objects.items()
-                  if args[0] == key.split('.')[0]])
+                   if args[0] == key.split('.')[0]])
 
     def do_update(self, arg):
         """
