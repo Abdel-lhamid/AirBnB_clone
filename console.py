@@ -42,13 +42,12 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        args = arg.split()
 
-        if args[0] not in self.classes:
+        if arg not in self.classes:
             print("** class doesn't exist **")
             return
 
-        new_inst = self.classes[args[0]]()
+        new_inst = self.classes[arg]()
         new_inst.save()
         print(new_inst.id)
 
@@ -85,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in self.classes:
             print("** class doesn't exist **")
             return
-        if not args[1]:
+        if len(args) < 2:
             print("** instance id missing **")
             return
 
@@ -100,17 +99,16 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """Prints all string representation of all instances
         based or not on the class namie """
-        args = arg.split()
         objects = storage.all()
-        if not args:
+        if not arg:
             print([str(obj) for obj in objects.values()])
             return
-        if args[0] not in self.classes:
+        if arg not in self.classes:
             print("** class doesn't exist **")
             return
         else:
             print([str(obj) for key, obj in objects.items()
-                   if args[0] == key.split('.')[0]])
+                   if key.startswith(arg)])
 
     def do_update(self, arg):
         """
