@@ -32,6 +32,7 @@ class HBNBCommand(cmd.Cmd):
         """Create a new instance of the BaseModel"""
         if not arg:
             print("** class name missing **")
+            return
         args = arg.split()
 
         if args[0] not in self.classes:
@@ -63,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
             return
         print(objects[key])
 
-    def do_destroy(self , arg ):
+    def do_destroy(self, arg):
         """
         Deletes an instance based on the class
         name and id (save the change into the JSON file)
@@ -83,12 +84,13 @@ class HBNBCommand(cmd.Cmd):
         if key not in storage.all():
             print("** no instance found ** ")
             return
-        objects= storage.all()
+        objects = storage.all()
         del objects[key]
         storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class namie """
+        """Prints all string representation of all instances
+        based or not on the class namie """
         args = arg.split()
         objects = storage.all()
         if not args:
@@ -98,8 +100,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            print([str(obj) for key, obj in objects.items() if args[0] == key.split('.')[0]])
-            
+            print([str(obj) for key, obj in objects.items()
+                  if args[0] == key.split('.')[0]])
+
     def do_update(self, arg):
         """
         Updates an instance based on the class name and id
@@ -128,6 +131,7 @@ class HBNBCommand(cmd.Cmd):
             return
         setattr(objects[key], args[2], args[3])
         objects[key].save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
