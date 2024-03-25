@@ -119,12 +119,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         count = 0
-        objects=storage.all()
+        objects = storage.all()
         for k in objects.keys():
-            if k.startswith(args):
-                count ++
+            if k.startswith(arg):
+                count =+ 1
         print(count)
-        
+
     def do_update(self, arg):
         """
         Updates an instance based on the class name and id
