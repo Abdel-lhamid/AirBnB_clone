@@ -3,6 +3,7 @@
 Module Custom CMD
 """
 import cmd
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -153,6 +154,21 @@ class HBNBCommand(cmd.Cmd):
             return
         setattr(objects[key], args[2], args[3])
         objects[key].save()
+
+    def precmd(self, arg):
+        """handles classname.function()"""
+        args = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", arg)
+        if not args:
+            return arg
+
+        class_name = args.group(1)
+        if class_name not in self.classes:
+            print("** class doesn't exist **")
+            return
+        method_name = args.group(2)
+        arguments = args.group(3).replace('"', '')
+        correct_commande = method_name + ' ' + class_name + ' ' + arguments
+        return correct_commande
 
 
 if __name__ == '__main__':
