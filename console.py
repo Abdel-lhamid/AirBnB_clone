@@ -117,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        count = FileStorage().count(self.classes[args[0]])
+        count = Storage().count(self.classes[args[0]])
         print(count)
         
     def do_update(self, arg):
