@@ -110,14 +110,6 @@ class HBNBCommand(cmd.Cmd):
             print([str(obj) for key, obj in objects.items()
                    if key.startswith(arg)])
 
-    def default(self, line):
-        """Called on an input line when the command prefix
-        is not recognized."""
-        args = line.split(".")
-        if len(args) = 2 and args[1] == "all()":
-            self.do_all(args[0])
-            return
-
     def do_count(self, arg):
         """Counts the number of instances of a class."""
         args = arg.split()
