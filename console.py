@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         objects = storage.all()
         for k in objects.keys():
             if k.startswith(arg):
-                count =+ 1
+                count += 1
         print(count)
 
     def do_update(self, arg):
