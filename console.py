@@ -105,6 +105,24 @@ class HBNBCommand(cmd.Cmd):
             print([str(obj) for key, obj in objects.items()
                    if args[0] == key.split('.')[0]])
 
+    def default(self, line):
+        """Called on an input line when the command prefix
+        is not recognized."""
+        args = line.split(".")
+        if len(args) = 2 and args[1] == "all()":
+            self.do_all(args[0])
+            return
+
+    def do_count(self, arg):
+        """Counts the number of instances of a class."""
+        args = arg.split()
+        if not args or args[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+
+        count = FileStorage().count(self.classes[args[0]])
+        print(count)
+        
     def do_update(self, arg):
         """
         Updates an instance based on the class name and id
