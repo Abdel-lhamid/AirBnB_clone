@@ -167,6 +167,9 @@ class HBNBCommand(cmd.Cmd):
             return
         method_name = args.group(2)
         arguments = args.group(3).replace('"', '')
+        characters_to_remove = '{}",:\''
+        for char in characters_to_remove:
+            arguments = arguments.replace(char, '')
         correct_commande = method_name + ' ' + class_name + ' ' + arguments
         return correct_commande
 
