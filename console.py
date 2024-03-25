@@ -152,7 +152,16 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 4:
             print("** value missing **")
             return
-        setattr(objects[key], args[2], args[3])
+        # Update the instance with the provided attribute-value pairs
+        for i in range(2, len(args), 2):
+            attribute = args[i]
+            try:
+                value = eval(args[i+1])
+                setattr(objects[key], attribute, value)
+            except (SyntaxError, NameError):
+                setattr(objects[key], attribute, args[i+1])
+                pass
+
         objects[key].save()
 
     def precmd(self, arg):
