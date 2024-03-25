@@ -90,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = args[0] + "." + args[1]
         if key not in storage.all():
-            print("** no instance found ** ")
+            print("** no instance found **")
             return
         objects = storage.all()
         del objects[key]
