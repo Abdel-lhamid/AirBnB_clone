@@ -112,12 +112,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """Counts the number of instances of a class."""
-        args = arg.split()
-        if not args or args[0] not in self.classes:
+        if not arg:
+            print("** class name missing **")
+            return
+        if arg not in self.classes:
             print("** class doesn't exist **")
             return
-
-        count = Storage().count(self.classes[args[0]])
+        count = 0
+        objects=storage.all()
+        for k in objects.keys():
+            if k.startswith(args):
+                count ++
         print(count)
         
     def do_update(self, arg):
