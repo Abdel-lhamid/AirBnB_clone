@@ -51,22 +51,27 @@ class TestBaseModel(unittest.TestCase):
         """Test the to_dict method"""
         obj = BaseModel(id="test_id", created_at="2024-01-01T00:00:00.000000",
                         updated_at="2024-01-01T00:00:00.000000")
-        expected_dict = {'id': 'test_id', 'created_at': '2024-01-01T00:00:00.000000',
-                         'updated_at': '2024-01-01T00:00:00.000000', '__class__': 'BaseModel'}
+        expected_dict = {'id': 'test_id',
+                         'created_at': '2024-01-01T00:00:00.000000',
+                         'updated_at': '2024-01-01T00:00:00.000000',
+                         '__class__': 'BaseModel'}
         self.assertEqual(obj.to_dict(), expected_dict)
 
     def test_str_representation(self):
         """Test the __str__ method"""
         obj = BaseModel(id="test_id", created_at="2024-01-01T00:00:00.000000",
                         updated_at="2024-01-01T00:00:00.000000")
-        expected_str = "[BaseModel] (test_id) {'id': 'test_id', 'created_at': " \
-                       "'2024-01-01T00:00:00.000000', 'updated_at': '2024-01-01T00:00:00.000000'}"
+        expected_str = "[BaseModel] (test_id) \
+                        {'id': 'test_id', 'created_at': " \
+                        "'2024-01-01T00:00:00.000000', \
+                        'updated_at': '2024-01-01T00:00:00.000000'}"
         self.assertEqual(str(obj), expected_str)
 
     def test_new_instance_from_dict(self):
         """Test creating a new instance from a dictionary"""
         data = {'id': 'test_id', 'created_at': '2024-01-01T00:00:00.000000',
-                'updated_at': '2024-01-01T00:00:00.000000', '__class__': 'BaseModel'}
+                'updated_at': '2024-01-01T00:00:00.000000',
+                '__class__': 'BaseModel'}
         obj = BaseModel(**data)
         self.assertEqual(obj.id, 'test_id')
         self.assertIsInstance(obj.created_at, datetime.datetime)
@@ -81,4 +86,3 @@ class TestBaseModel(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
