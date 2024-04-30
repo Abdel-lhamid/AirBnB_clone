@@ -17,7 +17,7 @@ class TestBaseModel(unittest.TestCase):
     def test_init_with_arguments(self):
         """Test creating an instance with arguments"""
         obj = BaseModel(id="test_id", created_at="2024-01-01T00:00:00.000000",
-                        updated_at="2024-01-01T00:00:00.000000")
+                updated_at="2024-01-01T00:00:00.000000")
         self.assertEqual(obj.id, "test_id")
         self.assertIsInstance(obj.created_at, datetime.datetime)
         self.assertIsInstance(obj.updated_at, datetime.datetime)
@@ -26,10 +26,10 @@ class TestBaseModel(unittest.TestCase):
         """Test creating an instance with invalid datetime format"""
         with self.assertRaises(ValueError):
             BaseModel(created_at="2024-01-01 00:00:00.000000",
-                      updated_at="2024-01-01 00:00:00.000000")
+                    updated_at="2024-01-01 00:00:00.000000")
 
-    def test_invalid_attribute_name(self):
-        """Test creating an instance with invalid attribute name"""
+            def test_invalid_attribute_name(self):
+                """Test creating an instance with invalid attribute name"""
         obj = BaseModel()
         with self.assertRaises(AttributeError):
             obj.invalid_attribute = "value"
@@ -50,21 +50,21 @@ class TestBaseModel(unittest.TestCase):
     def test_to_dict_method(self):
         """Test the to_dict method"""
         obj = BaseModel(id="test_id", created_at="2024-01-01T00:00:00.000000",
-                        updated_at="2024-01-01T00:00:00.000000")
+                updated_at="2024-01-01T00:00:00.000000")
         expected_dict = {'id': 'test_id',
-                         'created_at': '2024-01-01T00:00:00.000000',
-                         'updated_at': '2024-01-01T00:00:00.000000',
-                         '__class__': 'BaseModel'}
+                'created_at': '2024-01-01T00:00:00.000000',
+                'updated_at': '2024-01-01T00:00:00.000000',
+                '__class__': 'BaseModel'}
         self.assertEqual(obj.to_dict(), expected_dict)
 
     def test_str_representation(self):
         """Test the __str__ method"""
         obj = BaseModel(id="test_id", created_at="2024-01-01T00:00:00.000000",
-                        updated_at="2024-01-01T00:00:00.000000")
+                updated_at="2024-01-01T00:00:00.000000")
         expected_str = "[BaseModel] (test_id) \
-                        {'id': 'test_id', 'created_at': " \
-                        "'2024-01-01T00:00:00.000000', \
-                        'updated_at': '2024-01-01T00:00:00.000000'}"
+                {'id': 'test_id', 'created_at': " \
+                "'2024-01-01T00:00:00.000000', \
+                'updated_at': '2024-01-01T00:00:00.000000'}"
         self.assertEqual(str(obj), expected_str)
 
     def test_new_instance_from_dict(self):
@@ -82,6 +82,35 @@ class TestBaseModel(unittest.TestCase):
         obj = BaseModel(**{})
         self.assertIsNotNone(obj.id)
         self.assertIsInstance(obj.id, str)
+
+    def test_invalid_attribute_name(self):
+        """Test creating an instance with invalid attribute name"""
+        obj = self.value()
+        with self.assertRaises(AttributeError):
+            obj.invalid_attribute = "value"
+
+    def test_invalid_attribute_type(self):
+        """Test creating an instance with invalid attribute type"""
+        obj = self.value()
+        with self.assertRaises(TypeError):
+            obj.id = 123
+
+    def test_str_representation(self):
+            """Test the __str__ method"""
+        i = self.value()
+        expected_str = '[{}] ({}) {}'.format(
+                self.name, i.id, i.__dict__
+                )
+        # Format datetime objects
+        expected_str = expected_str.replace(
+                i.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                'datetime.datetime(2024, 1, 1, 0, 0)'
+                )
+        expected_str = expected_str.replace(
+                i.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+                'datetime.datetime(2024, 1, 1, 0, 0)'
+                )
+        self.assertEqual(str(i), expected_str)
 
 
 if __name__ == '__main__':
